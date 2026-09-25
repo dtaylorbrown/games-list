@@ -1,3 +1,4 @@
+import { colours } from "@/colours";
 import { GameCard } from "@/components/game-card";
 import { useGames } from "@/hooks/use-games";
 import type { Game } from "@/types/game";
@@ -6,6 +7,7 @@ import {
   ActivityIndicator,
   FlatList,
   Pressable,
+  RefreshControl,
   StyleSheet,
   Text,
   View,
@@ -25,7 +27,7 @@ export default function GameListScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={colours.primary} />
       </View>
     );
   }
@@ -53,8 +55,14 @@ export default function GameListScreen() {
       renderItem={({ item }) => <GameCard game={item} onPress={openGame} />}
       contentContainerStyle={styles.list}
       contentInsetAdjustmentBehavior="automatic"
-      refreshing={refreshing}
-      onRefresh={refresh}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={refresh}
+          tintColor={colours.accent}
+          colors={[colours.accent]}
+        />
+      }
       ListEmptyComponent={
         <View style={styles.center}>
           <Text>No games found.</Text>
@@ -71,14 +79,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
+    backgroundColor: colours.background,
   },
-  errorTitle: { fontSize: 18, fontWeight: "600", marginBottom: 6 },
-  errorDetail: { color: "#666", marginBottom: 16, textAlign: "center" },
+  errorTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 6,
+    color: colours.text,
+  },
+  errorDetail: {
+    color: colours.textMuted,
+    marginBottom: 16,
+    textAlign: "center",
+  },
   retry: {
-    backgroundColor: "#007aff",
+    backgroundColor: colours.accent,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 8,
+    borderRadius: 999,
   },
-  retryText: { color: "#fff", fontWeight: "600" },
+  retryText: { color: colours.text, fontWeight: "700" },
 });

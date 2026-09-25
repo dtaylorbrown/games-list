@@ -2,7 +2,7 @@ import fetchGames from "@/api/games";
 import type { Game } from "@/types/game";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export function useGames(limit = 25) {
+export const useGames = (limit = 25) => {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -51,4 +51,4 @@ export function useGames(limit = 25) {
     reload: () => loadGames(false),
     refresh: () => loadGames(true),
   };
-}
+};

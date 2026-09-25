@@ -11,6 +11,8 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { WebView } from "react-native-webview";
 
+import { colours } from "@/colours";
+
 const GameScreen = () => {
   const { id, url, title } = useLocalSearchParams<{
     id: string;
@@ -57,7 +59,7 @@ const GameScreen = () => {
         startInLoadingState
         renderLoading={() => (
           <View style={[StyleSheet.absoluteFill, styles.center]}>
-            <ActivityIndicator size="large" color="#fff" />
+            <ActivityIndicator size="large" color={colours.accent} />
           </View>
         )}
         javaScriptEnabled
@@ -76,17 +78,17 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#000" },
   center: { alignItems: "center", justifyContent: "center" },
   webview: { flex: 1, backgroundColor: "#000" },
-  message: { color: "#fff", fontSize: 16 },
+  message: { color: colours.surface, fontSize: 16 },
   close: {
     position: "absolute",
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: "rgba(0,0,0,0.55)",
+    backgroundColor: colours.overlay,
     alignItems: "center",
     justifyContent: "center",
   },
-  closeText: { color: "#fff", fontSize: 18, fontWeight: "600" },
+  closeText: { color: colours.surface, fontSize: 18, fontWeight: "600" },
 });
 
 export default GameScreen;
