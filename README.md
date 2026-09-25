@@ -18,4 +18,6 @@ This is a simple [Expo](https://expo.dev) project which lists games from `https:
 
 ## Dev Notes
 
-Write some notes on implementation and what not, here...
+I found game data from Famobi's public JSON feed, which powers `https://html5games.com/`.
+
+Tapping a game opens it in a `react-native-webview` component with the header and status bar hidden! If time permitted I would write some simple component tests to cover the game cards, add tests for the custom `useGames` hook!
