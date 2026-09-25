@@ -3,6 +3,7 @@ export type Game = {
   title: string;
   description: string;
   url: string;
-  color: string;
-  thumbnail?: string;
+  thumbnail: string;
+  categories: string[];
+  orientation: "portrait" | "landscape" | "none";
 };

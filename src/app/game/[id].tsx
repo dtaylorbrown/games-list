@@ -1,4 +1,3 @@
-import { GAMES } from "@/mock-game-data";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -13,31 +12,38 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { WebView } from "react-native-webview";
 
 const GameScreen = () => {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, url, title } = useLocalSearchParams<{
+    id: string;
+    url?: string;
+    title?: string;
+  }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [hasError, setHasError] = useState(false);
 
-  const game = GAMES.find((game) => game.id === id);
+  const gameUrl = /^[a-z0-9-]+$/i.test(id ?? "")
+    ? `https://play.famobi.com/${id}`
+    : null;
 
   const closeButton = (
     <Pressable
       onPress={() => router.back()}
       hitSlop={12}
       accessibilityRole="button"
-      accessibilityLabel="Close game"
+      accessibilityLabel={title ? `Close ${title}` : "Close game"}
       style={[styles.close, { top: insets.top + 36, right: insets.right + 12 }]}
     >
-      <Text style={styles.closeText}>x</Text>
+      <Text style={styles.closeText}>✕</Text>
     </Pressable>
   );
 
-  if (!game || hasError) {
+  if (!gameUrl || hasError) {
     return (
       <View style={[styles.container, styles.center]}>
         <Text style={styles.message}>
-          {game ? "Could not load this game" : "Game not found"}
+          {gameUrl ? "Could not load the game." : "Game not found."}
         </Text>
+        {closeButton}
       </View>
     );
   }
@@ -46,7 +52,7 @@ const GameScreen = () => {
     <View style={styles.container}>
       <StatusBar hidden />
       <WebView
-        source={{ uri: game.url }}
+        source={{ uri: gameUrl }}
         style={styles.webview}
         startInLoadingState
         renderLoading={() => (
