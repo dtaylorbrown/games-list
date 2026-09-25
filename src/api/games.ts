@@ -12,11 +12,6 @@ type ListGame = {
   orientation?: string;
 };
 
-// revisit
-export const isAllowedGameUrl = (url: string): boolean => {
-  return /^https:\/\/([a-z0-9-]+\.)*famobi\.com(\/|$)/i.test(url);
-};
-
 const toGame = (game: ListGame): Game => {
   return {
     id: game.package_id,
