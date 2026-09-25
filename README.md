@@ -1,4 +1,4 @@
-# Welcome to your Expo app 👋
+# games-list 👾🎮
 
 This is a simple [Expo](https://expo.dev) project which lists games from `https://html5games.com/`
 

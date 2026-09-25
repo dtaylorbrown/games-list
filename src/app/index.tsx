@@ -1,17 +1,29 @@
-import { Text, View, StyleSheet } from "react-native";
+import { GameCard } from "@/components/game-card";
+import { GAMES } from "@/mock-game-data";
+import { Game } from "@/types/game";
+import { useRouter } from "expo-router";
+import { FlatList, StyleSheet } from "react-native";
 
-export default function Index() {
+const GameListScreen = () => {
+  const router = useRouter();
+
+  const openGame = (game: Game) => {
+    router.push({ pathname: "/game/[id]", params: { id: game.id } });
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
-    </View>
+    <FlatList
+      data={GAMES}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <GameCard game={item} onPress={openGame} />}
+      contentContainerStyle={styles.list}
+      contentInsetAdjustmentBehavior="automatic"
+    />
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  list: { padding: 16 },
 });
+
+export default GameListScreen;
